@@ -34,8 +34,6 @@ let showToDo = (myArr) => {
 //? Create todo local storage
 let setToDoLocal = () => localStorage.setItem("ToDoLocal", JSON.stringify(todoArr.myArr));
 
-let setComplLocal = () => localStorage.setItem("ComplTaskLocal", JSON.stringify(completeArr.myArr));
-
 //? Get todo local storage
 let getToDoLocal = () => {
     if (localStorage.getItem("ToDoLocal") != undefined) {
@@ -61,33 +59,78 @@ let addToDo = () => {
     setToDoLocal();
     showToDo(todoArr.myArr);
     getELE("newTask").value = "";
+
+    checkFnc();
 }
 getELE("addItem").onclick = addToDo;
 window.addToDo = addToDo;
+
+// Create complete local storage
+let setComplLocal = () => localStorage.setItem("ComplTaskLocal", JSON.stringify(completeArr.myArr));
+
+// Get complete local storage
+let getComplLocal = () => {
+    if (localStorage.getItem("ComplTaskLocal") != undefined) {
+        completeArr.myArr = JSON.parse(localStorage.getItem("ComplTaskLocal"));
+    }
+}
+getComplLocal();
+
+// Show Complete ToDO on UI
+let showComplete = (complArr) => {
+    let content = "";
+    complArr.map((value) => {
+        content += `
+            <li>
+                ${value.content}
+                <div>
+                    <button onclick= "" class= "remove__btn">
+                        <i class="far fa-trash-alt"></i>
+                    </button> 
+                </div>
+            </li>
+        `;
+        getELE("completed").innerHTML = content;
+    })
+}
+showComplete(completeArr.myArr);
 
 
 //? Checkdone todo
 let checkDoneToDo = (id) => {
 
     let getToDoVal = document.querySelectorAll("#todo li");
-    
+
     for (let i = 0; i < getToDoVal.length; i++) {
         if (id == getToDoVal[i].id) {
             let toDoStyle = (getToDoVal[i].id);
-            getELE(toDoStyle).style.backgroundColor = "gray";
+            // getELE(toDoStyle).style.backgroundColor = "gray";
             getELE(toDoStyle).remove();
+            
             completeArr.addCompleteVal(todoArr.myArr[id]);
-
             setComplLocal();
+            showComplete(completeArr.myArr);
         }
     }
 
-    if (todoArr.myArr.length === completeArr.myArr.length) {
-        localStorage.removeItem("ToDoLocal");
-    }
+
+    // if (todoArr.myArr.length === completeArr.myArr.length) {
+    //     localStorage.removeItem("ToDoLocal");
+    // }
 
 }
-
 window.checkDoneToDo = checkDoneToDo;
 
 
+let checkFnc = () => {
+    for (let i = 0; i < todoArr.myArr.length; i++) {
+        for (let z = 0; z < completeArr.myArr.length; z++) {
+            if (todoArr.myArr[i].id == completeArr.myArr[z].id) {
+                getELE(todoArr.myArr[i].id).remove();
+            }
+            
+        }
+        
+    }
+}
+window.checkFnc = checkFnc;
