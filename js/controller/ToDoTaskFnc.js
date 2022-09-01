@@ -106,7 +106,7 @@ let checkDoneToDo = (id) => {
             let toDoStyle = (getToDoVal[i].id);
             // getELE(toDoStyle).style.backgroundColor = "gray";
             getELE(toDoStyle).remove();
-            
+
             completeArr.addCompleteVal(todoArr.myArr[id]);
             setComplLocal();
             showComplete(completeArr.myArr);
@@ -128,9 +128,10 @@ let checkFnc = () => {
             if (todoArr.myArr[i].id == completeArr.myArr[z].id) {
                 getELE(todoArr.myArr[i].id).remove();
             }
-            
+
         }
-        
+
     }
+
 }
 window.checkFnc = checkFnc;
