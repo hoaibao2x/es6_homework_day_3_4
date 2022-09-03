@@ -345,6 +345,11 @@ ul.todo#completed span{
   color: red;
 }
 
+#completed li {
+  color: rgb(250, 57, 107);
+  font-weight: bold;
+}
+
 #completed li .remove__btn {
   padding: 5px 7px;
   font-size: 16px;
@@ -356,6 +361,19 @@ ul.todo#completed span{
 #completed li .remove__btn:hover {
   cursor: pointer;
   color: red;
+}
+
+#completed li .check__btn {
+  padding: 5px 7px;
+  font-size: 16px;
+  border: none;
+  background: transparent;
+}
+
+#completed li .check__btn i {
+  color: white;
+  background: rgb(250, 57, 107);
+  border-radius: 15px;
 }
 
 #todo li .check__btn {
